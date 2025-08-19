@@ -1,0 +1,115 @@
+########################################
+# OS / System junk
+########################################
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+########################################
+# Environment & secrets
+# (commit an .env.example, not real creds)
+########################################
+.env
+.env.*
+!.env.example
+
+########################################
+# Logs & runtime caches
+########################################
+*.log
+logs/
+log/
+tmp/
+temp/
+cache/
+coverage/
+.php-cs-fixer.cache
+
+########################################
+# PHP / Composer
+########################################
+vendor/
+composer.phar
+# Keep composer.lock for apps (reproducible installs)
+# (Intentionally NOT ignored)
+
+########################################
+# Node / Frontend tooling
+########################################
+node_modules/
+bower_components/
+dist/
+build/
+*.tsbuildinfo
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.eslintcache
+.stylelintcache
+.parcel-cache/
+.vite/
+
+########################################
+# Database artifacts
+# (commit only curated schema/seed SQL)
+########################################
+*.sql
+*.sql.gz
+*.dump
+*.mysql
+*.sqlite
+*.db
+
+# --- allow curated DB files you WANT in git ---
+!db/schema.sql
+!db/seeds/**
+
+########################################
+# Web server / Apache
+########################################
+# Keep .htaccess tracked — DO NOT ignore it
+# Apache error files/logs will be caught by *.log above
+*.err
+
+########################################
+# Uploads (optional: keep empty dirs with .gitkeep)
+########################################
+public/uploads/*
+!public/uploads/.gitkeep
+storage/uploads/*
+!storage/uploads/.gitkeep
+
+########################################
+# Documentation (slides/diagrams/specs)
+########################################
+# Ensure course deliverables stay tracked
+!docs/**
+!docs/**/*.png
+!docs/**/*.jpg
+!docs/**/*.svg
+!docs/**/*.drawio
+!docs/**/*.pdf
+!docs/**/*.pptx
+
+########################################
+# API spec (Swagger/OpenAPI)
+########################################
+!api/openapi.yaml
+!api/swagger.json
+
+########################################
+# IDE / Editor settings
+########################################
+# JetBrains (PhpStorm/IntelliJ)
+.idea/
+*.iml
+
+# VS Code
+.vscode/
+
+# Others / temp edits
+*.swp
+*.swo
+*.orig
