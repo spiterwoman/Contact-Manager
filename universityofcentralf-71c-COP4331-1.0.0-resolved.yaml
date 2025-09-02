@@ -1,0 +1,270 @@
+swagger: "2.0"
+info:
+  description: This is the API documentation for the COP 4331 Contact Manager
+  version: 1.0.0
+  title: Contact Manager
+  contact:
+    email: asandro0805@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: 134.199.204.183
+basePath: /LAMPAPI
+schemes:
+- http
+paths:
+  /Login.php:
+    post:
+      tags:
+      - Users
+      summary: Logs into Contact Manager
+      description: Logs into Contact Manager
+      operationId: doLogin
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: loginItem
+        description: Login
+        required: false
+        schema:
+          $ref: "#/definitions/Login"
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: URL Not Found
+        "500":
+          description: Server Error
+  /Register.php:
+    post:
+      tags:
+      - Users
+      summary: Register User to Contact Manager
+      description: Register User into Contact Manager
+      operationId: doRegister
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: registerItem
+        description: Register
+        required: false
+        schema:
+          $ref: "#/definitions/Register"
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: URL Not Found
+        "500":
+          description: Server Error
+  /CreateContact.php:
+    post:
+      tags:
+      - Add
+      summary: Add Contact to Contact Manager
+      description: Add Contact into Contact Manager database
+      operationId: addContact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: addItem
+        description: Add Contact
+        required: false
+        schema:
+          $ref: "#/definitions/Add"
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: URL Not Found
+        "500":
+          description: Server Error
+  /SearchContacts.php:
+    post:
+      tags:
+      - Search
+      summary: Search Contact
+      description: Searches contact from Contact Manager database
+      operationId: searchContact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: searchItem
+        description: Search Contact
+        required: false
+        schema:
+          $ref: "#/definitions/Search"
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: URL Not Found
+        "500":
+          description: Server Error
+  /UpdateContact.php:
+    post:
+      tags:
+      - Update
+      summary: Update Contact
+      description: Updates contact in Contact Manager database
+      operationId: updateContact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: updateItem
+        description: Update Contact
+        required: false
+        schema:
+          $ref: "#/definitions/Update"
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: URL Not Found
+        "500":
+          description: Server Error
+  /DeleteContact.php:
+    post:
+      tags:
+      - Delete
+      summary: Delete contact from Contact Manager
+      description: Delete contact from Contact Manager database
+      operationId: deleteContact
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - in: body
+        name: deleteItem
+        description: Delete Contact
+        required: false
+        schema:
+          $ref: "#/definitions/Delete"
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: URL Not Found
+        "500":
+          description: Server Error
+definitions:
+  Login:
+    type: object
+    required:
+    - login
+    - password
+    properties:
+      login:
+        type: string
+        example: user
+      password:
+        type: string
+        example: password
+  Register:
+    type: object
+    required:
+    - firstName
+    - lastName
+    - login
+    - password
+    properties:
+      firstName:
+        type: string
+        example: bob
+      lastName:
+        type: string
+        example: brown
+      login:
+        type: string
+        example: user
+      password:
+        type: string
+        example: password
+  Add:
+    type: object
+    required:
+    - email
+    - firstName
+    - lastName
+    - phoneNumber
+    - userId
+    properties:
+      firstName:
+        type: string
+        example: bob
+      lastName:
+        type: string
+        example: brown
+      phoneNumber:
+        type: integer
+        example: 123456789
+      email:
+        type: string
+        example: user@yahoo.com
+      userId:
+        type: integer
+        example: 1
+  Search:
+    type: object
+    required:
+    - firstName
+    - userId
+    properties:
+      firstName:
+        type: string
+        example: bob
+      userId:
+        type: integer
+        example: 1
+  Update:
+    type: object
+    required:
+    - email
+    - firstName
+    - lastName
+    - phoneNumber
+    - userId
+    properties:
+      firstName:
+        type: string
+        example: bob
+      lastName:
+        type: string
+        example: brown
+      phoneNumber:
+        type: integer
+        example: 123456789
+      email:
+        type: string
+        example: user@yahoo.com
+      userId:
+        type: integer
+        example: 1
+  Delete:
+    type: object
+    required:
+    - Id
+    - userId
+    properties:
+      userId:
+        type: integer
+        example: 1
+      Id:
+        type: integer
+        example: 14
