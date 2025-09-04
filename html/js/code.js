@@ -5,7 +5,7 @@ let loginId = 0;
 let firstName = "";
 let lastName = "";
 
-function doLogin()
+function doLogin()//assuming fully comliant, pending HTMLs
 {
 	loginId = 0;
 	firstName = "";
@@ -58,7 +58,7 @@ function doLogin()
 
 }
 
-function doRegister()
+function doRegister() //fully updated pending HTMLs
 {
 	loginId = 0;
 	firstName = "";
@@ -123,7 +123,7 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function saveCookie()
+function saveCookie()//shouldnt change
 {
 	let minutes = 20;
 	let date = new Date();
@@ -131,7 +131,7 @@ function saveCookie()
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",loginId=" + loginId + ";expires=" + date.toGMTString();
 }
 
-function readCookie()
+function readCookie()//shouldnt change
 {
 	loginId = -1;
 	let data = document.cookie;
@@ -164,7 +164,7 @@ function readCookie()
 	}
 }
 
-function addContact()
+function addContact() //update in progess
 {
 	let newFirstName = document.getElementById("colorText").value; //colorText for like firstName
 	let newLastName = document.getElementById("colorText").value;
@@ -205,7 +205,7 @@ function addContact()
 	
 }
 
-function searchContact()
+function searchContact() //not updated yet
 {
 	let srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
