@@ -5,7 +5,7 @@ let loginId = 0;
 let firstName = "";
 let lastName = "";
 
-function doLogin()//assuming fully comliant, pending HTMLs
+function doLogin() //Alessandro-assuming fully compliant, pending HTMLs
 {
 	loginId = 0;
 	firstName = "";
@@ -58,7 +58,7 @@ function doLogin()//assuming fully comliant, pending HTMLs
 
 }
 
-function doRegister() //fully updated pending HTMLs
+function doRegister() //Alessandro-fully updated pending HTMLs
 {
 	loginId = 0;
 	firstName = "";
@@ -114,7 +114,7 @@ function doRegister() //fully updated pending HTMLs
 
 }
 
-function doLogout()
+function doLogout() //Dion-not updated yet
 {
 	loginId = 0;
 	firstName = "";
@@ -123,7 +123,7 @@ function doLogout()
 	window.location.href = "index.html";
 }
 
-function saveCookie()//shouldnt change
+function saveCookie() //Tyler-not updated yet
 {
 	let minutes = 20;
 	let date = new Date();
@@ -131,7 +131,7 @@ function saveCookie()//shouldnt change
 	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",loginId=" + loginId + ";expires=" + date.toGMTString();
 }
 
-function readCookie()//shouldnt change
+function readCookie() //Tyler-not updated yet
 {
 	loginId = -1;
 	let data = document.cookie;
@@ -164,7 +164,7 @@ function readCookie()//shouldnt change
 	}
 }
 
-function addContact() //update in progess
+function addContact() //Alessandro-update in progess
 {
 	let newFirstName = document.getElementById("colorText").value; //colorText for like firstName
 	let newLastName = document.getElementById("colorText").value;
@@ -205,7 +205,7 @@ function addContact() //update in progess
 	
 }
 
-function searchContact() //not updated yet
+function searchContact() //Tyler-not updated yet
 {
 	let srch = document.getElementById("searchText").value;
 	document.getElementById("colorSearchResult").innerHTML = "";
@@ -250,7 +250,22 @@ function searchContact() //not updated yet
 	
 }
 
-function validRegister(firstName, lastName, login, password) 
+function deleteContact() //Dion-not updated yet
+{
+
+}
+
+function updateContact() //Dion-not updated yet
+{
+
+}
+
+function updatePassword() //Alessandro-not updated yet
+{
+
+}
+
+function validRegister(firstName, lastName, login, password) //fully updated pending HTMLs
 {
 
     var firstNameErr = lastNameErr = loginErr = passwordErr = true;
