@@ -1,13 +1,13 @@
 # Contact Manager
 - Group Members:
   
-    -Chrystel Geno
+    -Chrystel Geno (Front-End)
   
-    -Dion Lin
+    -Dion Lin (API)
   
-    -Tyler Matthews
+    -Tyler Matthews (Database)
   
-    -Alyssa Rodriguez
+    -Alyssa Rodriguez (Front-End)
   
-    -Alessandro Sandri
+    -Alessandro Sandri (PM, API)
 
