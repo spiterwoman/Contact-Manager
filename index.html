@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deep Blue</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="assets/favicon/favicon.png" />
+</head>
+<body>
+
+  <section class="hero">
+    <div class="inner">
+      <h1><a href="index.html" class="home-link">Deep Blue</a></h1>
+      <p>Dive-Themed Contact Manager</p>
+      <div class="auth-buttons">
+        <a href="login.html" class="btn btn-login">Login</a>
+        <a href="login.html" class="btn btn-register">Register</a>
+      </div>
+    </div>
+
+    <div class="clouds" aria-hidden="true">
+      <img src="assets/clouds/cloud1.png" alt="" class="cloud cloud1" />
+      <img src="assets/clouds/cloud2.png" alt="" class="cloud cloud2" />
+    </div>
+
+    <!-- Used Waves.io to propogate random wave path numbers (this is 'd') -->
+    <div class="waves" aria-hidden="true">
+      <div class="wave back">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <path d="M0,96L40,112C80,128,160,160,240,176C320,192,400,192,480,181.3C560,171,640,149,720,149.3C800,149,880,171,960,181.3C1040,192,1120,192,1200,176C1280,160,1360,128,1400,112L1440,96L1440,320L0,320Z"/>
+        </svg>
+      </div>
+
+      <div class="boat-wrap" aria-hidden="true">
+        <img class="boat" src="assets/boat/boat.png" alt="" />
+      </div>
+
+      <div class="wave front">
+        <svg viewBox="0 0 1440 320" preserveAspectRatio="none">
+          <path d="M0,32L48,80C96,128,192,224,288,229.3C384,235,480,149,576,144C672,139,768,213,864,213.3C960,213,1056,139,1152,96C1248,53,1344,43,1392,37.3L1440,32L1440,320L0,320Z"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="bubble-bed" aria-hidden="true"></div>
+  </section>
+
+  <!-- Added Github Repo to Diver as a 'easter egg' -->
+  <a class="diver-wrap" href="https://github.com/spiterwoman/Contact-Manager" target="_blank" title="View GitHub Repo">
+    <img class="diver" src="assets/diver/Diver.png" alt="Scuba Diver" />
+  </a>
+
+  <script src="bubbles.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deep Blue — Login / Register</title>
+  <link rel="stylesheet" href="login.css" />
+  <link rel="icon" type="image/png" href="assets/favicon/favicon.png" />
+</head>
+<body>
+
+  <!-- Background Fish & Bubbles -->
+  <div class="swimlane" aria-hidden="true"></div>
+  <div class="bubble-bed" aria-hidden="true"></div>
+
+  <!-- Authentication Card (Credenntials Section)-->
+  <main class="auth">
+    <h1><a href="index.html" class="home-link">Deep Blue</a></h1>
+    <p class="tagline">Sign in to manage your crew</p>
+
+    <!-- Tab Headers (Swap between Login & Register) -->
+    <div class="card">
+      <div class="tabs" role="tablist" aria-label="Auth tabs">
+        <button id="tab-login" class="tab active" role="tab" aria-selected="true" aria-controls="panel-login">Login</button>
+        <button id="tab-register" class="tab" role="tab" aria-selected="false" aria-controls="panel-register">Sign&nbsp;Up</button>
+      </div>
+
+      <!-- Login Panel -->
+      <form id="panel-login" class="panel active" role="tabpanel" aria-labelledby="tab-login" novalidate>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="username" required placeholder="you@ocean.com" />
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="current-password" required placeholder="••••••••" />
+        </label>
+        <button class="cta" type="submit">Login</button>
+      </form>
+
+      <!-- Register Panel -->
+      <form id="panel-register" class="panel" role="tabpanel" aria-labelledby="tab-register" novalidate>
+        <label class="field">
+          <span>Name</span>
+          <input type="text" name="name" autocomplete="name" required placeholder="Captain Nemo" />
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" name="email" autocomplete="email" required placeholder="you@ocean.com" />
+        </label>
+        <label class="field">
+          <span>Password</span>
+          <input type="password" name="password" autocomplete="new-password" required placeholder="Create a password" />
+        </label>
+        <button class="cta alt" type="submit">Create Account</button>
+      </form>
+    </div>
+  </main>
+
+  <!-- JS Scripts -->
+  <script src="bubbles.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>
