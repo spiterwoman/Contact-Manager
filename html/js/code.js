@@ -61,17 +61,29 @@ function doLogin() //Alessandro-assuming fully compliant, pending HTMLs
 function doRegister() //Alessandro-fully updated pending HTMLs
 {
 	loginId = 0;
-	firstName = "";
-	lastName = "";
+	//firstName = "";
+	//lastName = "";
 
-	//FirstName,LastName,Login,password
-	let firstName = document.getElementById("firstName").value;
-	let lastName = document.getElementById("lastName").value;
-	let login = document.getElementById("loginName").value;
-	let password = document.getElementById("loginpassword").value;
+	//grab form then split the fields
+  console.log(document.getElementById("username").value);
+  console.log(document.getElementById("login").value);
+  console.log(document.getElementById("password").value);
+  
+  //let fullName = document.getElementById("username").value;
+  //let splitname = fullName.split(" ");
+	let firstName = document.getElementById("username").value;
+	let lastName = document.getElementById("username").value;
+	let login = document.getElementById("login").value;
+	let password = document.getElementById("password").value;
+ 
+  console.log(firstName);
+  console.log(lastName);
+  console.log(login);
+  console.log(password);
+  
 	//	var hash = md5( password );
 	
-	document.getElementById("signupResult").innerHTML = "";
+	//document.getElementById("signupResult").innerHTML = "";
 
 	let tmp = {firstName:firstName,lastName:lastName,login:login,password:password};
 	//	var tmp = {login:login,password:hash};
@@ -82,18 +94,21 @@ function doRegister() //Alessandro-fully updated pending HTMLs
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+ console.log("1");
 	try
 	{
 		xhr.onreadystatechange = function() 
 		{
+    console.log("4");
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				loginId = jsonObject.id;
-		
-				if(!validRegister(firstName, lastName, loginname, password))
+		    console.log("5");
+				if(!validRegister(firstName, lastName, login, password))
 				{		
-					document.getElementById("signupResult").innerHTML = "You fucked up Registering";
+					//document.getElementById("signupResult").innerHTML = "You fucked up Registering";
+          console.log("issues 1");
 					return;
 				}
 		
@@ -101,15 +116,19 @@ function doRegister() //Alessandro-fully updated pending HTMLs
 				lastName = jsonObject.lastName;
 
 				saveCookie();
-	
-				window.location.href = "contacts.html"; //pending update from FE, probably like contacts.html or something
+	      console.log("6");
+				window.location.href = "holder.html"; //pending update from FE, probably like contacts.html or something
+        console.log("7");
 			}
-		};
+		}
+    console.log("2");
 		xhr.send(jsonPayload);
+    console.log("3");
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		//document.getElementById("loginResult").innerHTML = err.message;
+   console.log("issues 2");
 	}
 
 }
@@ -119,47 +138,56 @@ function doLogout() //Dion-not updated yet
 	loginId = 0;
 	firstName = "";
 	lastName = "";
+	// clear cookies for first, last name and id 
 	document.cookie = "firstName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	document.cookie = "lastName= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+	document.cookie = "loginId= ; expires = Thu, 01 Jan 1970 00:00:00 GMT";
+
 	window.location.href = "index.html";
 }
 
-function saveCookie() //Tyler-Updated
+function saveCookie() //Tyler-not updated yet
 {
-	const maxAge = 20 * 60;
-	// Should save cookies as separate key-value pairs (untested)
-	document.cookie = `firstName=${encodeURIComponent(firstName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
-	document.cookie = `lastName=${encodeURIComponent(lastName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
-	document.cookie = `loginID=${encodeURIComponent(loginID)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
+	let minutes = 20;
+	let date = new Date();
+	date.setTime(date.getTime()+(minutes*60*1000));	
+	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",loginId=" + loginId + ";expires=" + date.toGMTString();
 }
 
-function readCookie() //Tyler-Updated
+function readCookie() //Tyler-not updated yet
 {
 	loginId = -1;
-	firstName = "";
-	lastName = "";
-
-	const cookies = document.cookie.split(";");
-
-	for (const part of cookies) {
-		const [rawKey, ...rest] = part.trim().split("=");
-		const key = rawKey;
-		const value = rest.join("=");
-		if (!key) continue;
-
-		if (key == "firstName") firstName = decodeURIComponent(value || "");
-		else if (key == "lastName") lastName = decodeURIComponent(value || "");
-		else if (key == "loginID") {
-			const n = parseInt(decodeURIComponent(value || ""), 10);
-			loginID = Number.isFinite(n) ? n : -1;
+	let data = document.cookie;
+	let splits = data.split(",");
+	for(var i = 0; i < splits.length; i++) 
+	{
+		let thisOne = splits[i].trim();
+		let tokens = thisOne.split("=");
+		if( tokens[0] == "firstName" )
+		{
+			firstName = tokens[1];
+		}
+		else if( tokens[0] == "lastName" )
+		{
+			lastName = tokens[1];
+		}
+		else if( tokens[0] == "loginId" )
+		{
+			loginId = parseInt( tokens[1].trim() );
 		}
 	}
-
-	if (loginID < 1) {
-		window.location.href = "index.html" //Not logged in, send back to landing page
+	
+	if( loginId < 0 )
+	{
+		window.location.href = "index.html";
+	}
+	else
+	{
+//		document.getElementById("loginName").innerHTML = "Logged in as " + firstName + " " + lastName;
 	}
 }
 
-function addContact() //Alessandro-update in progess
+function addContact() //Alessandro-update in progress
 {
 	let newFirstName = document.getElementById("colorText").value; //colorText for like firstName
 	let newLastName = document.getElementById("colorText").value;
@@ -200,77 +228,93 @@ function addContact() //Alessandro-update in progess
 	
 }
 
-function searchContact() //Tyler-Updated, unsure on API endpoints, untested
+function searchContact() //Tyler-not updated yet
 {
-	const srch = document.getElementById("searchText").value.trim();
+	let srch = document.getElementById("searchText").value;
+	document.getElementById("colorSearchResult").innerHTML = "";
+	
+	let colorList = "";
 
-	const resultMsgEl = document.getElementById("contactSearchResult");
-	const listEl = document.getElementById("contactList");
+	let tmp = {search:srch,loginId:loginId};
+	let jsonPayload = JSON.stringify( tmp );
 
-	if (resultMsgEl) resultMsgEl.innerHTML = "";
-	if (listEl) listEl.innerHTML = "";
-
-	const tmp = {search: srch, loginID: loginID};
-	const jsonPayload = JSON.stringify(tmp);
-
-	const url = urlBase + '/SearchContacts.' + extension;
-
-	const xhr = new XMLHttpRequest();
+	let url = urlBase + '/SearchColors.' + extension;
+	
+	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-
-	xhr.onreadystatechange = function() {
-		if (this.readyState === 4) {
-			if (this.status === 200) {
-				let json;
-				try {json = JSON.parse(xhr.responseText);}
-				catch {if (resultMsgEl) resultMsgEl.innerHTML = "Failed to parse server response."; return;}
-
-				const results = Array.isArray(json.results) ? json.results : [];
-
-				if (resultMsgEl) resultMsgEl.innerHTML = `${results.length} contact(s) found`;
-
-				if (listEl) {
-					if (results.length === 0) {
-						listEl.innerHTML = "<em>No matches.</em>";
-					} else {
-						const rows = results.map(r => {
-							const firstName = (r.firstName ?? "").toString();
-							const lastName = (r.lastName ?? "").toString();
-							const phone = (r.phone ?? "").toString();
-							const email = (r.email ?? "").toString();
-							return `<div class="contact-row">
-	   									<strong>${firstName} ${lastName}</strong><br>
-			 							<span>${phone}</span> &middot; <span>${email}</span>
-		   							</div>`;
-						});
-						listEl.innerHTML = rows.join("");
+	try
+	{
+		xhr.onreadystatechange = function() 
+		{
+			if (this.readyState == 4 && this.status == 200) 
+			{
+				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
+				let jsonObject = JSON.parse( xhr.responseText );
+				
+				for( let i=0; i<jsonObject.results.length; i++ )
+				{
+					colorList += jsonObject.results[i];
+					if( i < jsonObject.results.length - 1 )
+					{
+						colorList += "<br />\r\n";
 					}
 				}
-			} else {
-				if (resultMsgEl) resultMsgEl.innerHTML = `Search failed (${this.status}).`;
+				
+				document.getElementsByTagName("p")[0].innerHTML = colorList;
 			}
-		}
-	};
-
-	try {
+		};
 		xhr.send(jsonPayload);
-	} catch (err) {
-		if (resultMsgEl) resultMsgEl.innerHTML = err.message;
 	}
-}
-	
+	catch(err)
+	{
+		document.getElementById("colorSearchResult").innerHTML = err.message;
+	}
 	
 }
 
 function deleteContact() //Dion-not updated yet
 {
+	let contactId = document.getElementById("deleteContactId").value;
+	document.getElementById("contactDeleteResult").innerHTML = ""; 
+	
+	let tmp = { 
+	  id: contactId,
+	  loginId: loginId
+	};
 
+	let jsonPayload = JSON.stringify(tmp); 
+	
+	let url = urlBase + '/DeleteContact.' + extension;
+	
+	let xhr = new XMLHttpRequest();
+	xhr.open("POST", url, true); 
+	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+	try {
+	    xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let jsonObject = JSON.parse(xhr.responseText);
+
+                    if (jsonObject.error) {
+                        document.getElementById("contactDeleteResult").innerHTML = 
+                            "Error deleting contact: " + jsonObject.error;
+               	    } else {
+                        document.getElementById("contactDeleteResult").innerHTML = 
+                            "Contact deleted successfully.";
+                    }
+                }
+            };
+            xhr.send(jsonPayload); 
+    	} 
+    	catch (err) {
+            document.getElementById("contactDeleteResult").innerHTML = err.message;
+    	}
+   	
 }
 
 function updateContact() //Dion-not updated yet
 {
-
+	
 }
 
 function updatePassword() //Alessandro-not updated yet
@@ -340,5 +384,4 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
     return true;
 }
-
 
