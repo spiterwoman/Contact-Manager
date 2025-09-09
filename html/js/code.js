@@ -225,7 +225,7 @@ function addContact() //Alessandro-update in progress
 	
 }
 
-function searchContact() //Tyler-Update pending, likely will change to handle HTML form
+function searchContact() //Tyler-Updated, unsure on API endpoints, untested
 {
 	const srch = document.getElementById("searchText").value.trim();
 
@@ -326,7 +326,51 @@ function deleteContact() //Dion-not updated yet
 
 function updateContact() //Dion-not updated yet
 {
-	
+	let contactId = document.getElementById("updateContactId").value;
+        let newFirstName = document.getElementById("updateFirstName").value;
+        let newLastName = document.getElementById("updateLastName").value;
+        let newPhone = document.getElementById("updatePhone").value;
+        let newEmail = document.getElementById("updateEmail").value;
+
+        document.getElementById("contactUpdateResult").innerHTML = ""; 
+
+        let tmp = { 
+            id: contactId,
+            loginId: loginId,
+            firstName: newFirstName,
+            lastName: newLastName,
+            phone: newPhone,
+            email: newEmail
+        };
+
+        let jsonPayload = JSON.stringify(tmp); 
+    
+        let url = urlBase + '/UpdateContact.' + extension;
+    
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST", url, true); 
+        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    
+        try {
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+		    // parse allows for the JSON response from api rather than simple log output
+                    let jsonObject = JSON.parse(xhr.responseText);
+
+                    if (jsonObject.error) {
+                        document.getElementById("contactUpdateResult").innerHTML = 
+                        "Error updating contact: " + jsonObject.error;
+                    } else {
+                        document.getElementById("contactUpdateResult").innerHTML = 
+                        "Contact updated successfully.";
+                    }
+                }
+            };
+             xhr.send(jsonPayload); 
+        } 
+         catch (err) {
+             document.getElementById("contactUpdateResult").innerHTML = err.message;
+        }
 }
 
 function updatePassword() //Alessandro-not updated yet
