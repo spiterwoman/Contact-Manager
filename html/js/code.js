@@ -225,7 +225,7 @@ function addContact() //Alessandro-update in progress
 	
 }
 
-function searchContact() //Tyler-Updated, unsure on API endpoints, untested
+function searchContact() //Tyler-Update pending, likely will change to handle HTML form
 {
 	const srch = document.getElementById("searchText").value.trim();
 
@@ -396,4 +396,5 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
     return true;
 }
+
 
