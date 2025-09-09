@@ -42,17 +42,17 @@
       <form id="panel-register" class="panel" role="tabpanel" aria-labelledby="tab-register" novalidate>
         <label class="field">
           <span>Name</span>
-          <input type="text" name="name" autocomplete="name" required placeholder="Captain Nemo" />
+          <input type="text" id="username" name="name" autocomplete="name" required placeholder="Captain Nemo" />
         </label>
         <label class="field">
           <span>Email</span>
-          <input type="email" name="email" autocomplete="email" required placeholder="you@ocean.com" />
+          <input type="email" id="login" name="email" autocomplete="email" required placeholder="you@ocean.com" />
         </label>
         <label class="field">
           <span>Password</span>
-          <input type="password" name="password" autocomplete="new-password" required placeholder="Create a password" />
+          <input type="password" id="password" name="password" autocomplete="new-password" required placeholder="Create a password" />
         </label>
-        <button class="cta alt" type="submit">Create Account</button>
+        <button class="cta alt" type="submit" onclick="doRegister();">Create Account</button>
       </form>
     </div>
   </main>
@@ -60,5 +60,7 @@
   <!-- JS Scripts -->
   <script src="bubbles.js"></script>
   <script src="login.js"></script>
+  <script type="text/javascript" src="js/code.js"></script>
+  <script type="text/javascript" src="js/md5.js"></script>
 </body>
 </html>
