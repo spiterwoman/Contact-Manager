@@ -146,46 +146,43 @@ function doLogout() //Dion-not updated yet
 	window.location.href = "index.html";
 }
 
-function saveCookie() //Tyler-not updated yet
+function saveCookie() //Tyler-Updated
 {
-	let minutes = 20;
-	let date = new Date();
-	date.setTime(date.getTime()+(minutes*60*1000));	
-	document.cookie = "firstName=" + firstName + ",lastName=" + lastName + ",loginId=" + loginId + ";expires=" + date.toGMTString();
+	const maxAge = 20 * 60;
+	// Should save cookies as separate key-value pairs (untested)
+	document.cookie = `firstName=${encodeURIComponent(firstName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
+	document.cookie = `lastName=${encodeURIComponent(lastName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
+	document.cookie = `loginID=${encodeURIComponent(loginID)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
 }
 
-function readCookie() //Tyler-not updated yet
+
+function readCookie() //Tyler-Updated
 {
 	loginId = -1;
-	let data = document.cookie;
-	let splits = data.split(",");
-	for(var i = 0; i < splits.length; i++) 
-	{
-		let thisOne = splits[i].trim();
-		let tokens = thisOne.split("=");
-		if( tokens[0] == "firstName" )
-		{
-			firstName = tokens[1];
-		}
-		else if( tokens[0] == "lastName" )
-		{
-			lastName = tokens[1];
-		}
-		else if( tokens[0] == "loginId" )
-		{
-			loginId = parseInt( tokens[1].trim() );
+	firstName = "";
+	lastName = "";
+
+	const cookies = document.cookie.split(";");
+
+	for (const part of cookies) {
+		const [rawKey, ...rest] = part.trim().split("=");
+		const key = rawKey;
+		const value = rest.join("=");
+		if (!key) continue;
+
+		if (key == "firstName") firstName = decodeURIComponent(value || "");
+		else if (key == "lastName") lastName = decodeURIComponent(value || "");
+		else if (key == "loginID") {
+			const n = parseInt(decodeURIComponent(value || ""), 10);
+			loginID = Number.isFinite(n) ? n : -1;
 		}
 	}
-	
-	if( loginId < 0 )
-	{
-		window.location.href = "index.html";
-	}
-	else
-	{
-//		document.getElementById("loginName").innerHTML = "Logged in as " + firstName + " " + lastName;
+
+	if (loginID < 1) {
+		window.location.href = "index.html" //Not logged in, send back to landing page
 	}
 }
+
 
 function addContact() //Alessandro-update in progress
 {
@@ -228,49 +225,64 @@ function addContact() //Alessandro-update in progress
 	
 }
 
-function searchContact() //Tyler-not updated yet
+function searchContact() //Tyler-Updated, unsure on API endpoints, untested
 {
-	let srch = document.getElementById("searchText").value;
-	document.getElementById("colorSearchResult").innerHTML = "";
-	
-	let colorList = "";
+	const srch = document.getElementById("searchText").value.trim();
 
-	let tmp = {search:srch,loginId:loginId};
-	let jsonPayload = JSON.stringify( tmp );
+	const resultMsgEl = document.getElementById("contactSearchResult");
+	const listEl = document.getElementById("contactList");
 
-	let url = urlBase + '/SearchColors.' + extension;
-	
-	let xhr = new XMLHttpRequest();
+	if (resultMsgEl) resultMsgEl.innerHTML = "";
+	if (listEl) listEl.innerHTML = "";
+
+	const tmp = {search: srch, loginID: loginID};
+	const jsonPayload = JSON.stringify(tmp);
+
+	const url = urlBase + '/SearchContacts.' + extension;
+
+	const xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try
-	{
-		xhr.onreadystatechange = function() 
-		{
-			if (this.readyState == 4 && this.status == 200) 
-			{
-				document.getElementById("colorSearchResult").innerHTML = "Color(s) has been retrieved";
-				let jsonObject = JSON.parse( xhr.responseText );
-				
-				for( let i=0; i<jsonObject.results.length; i++ )
-				{
-					colorList += jsonObject.results[i];
-					if( i < jsonObject.results.length - 1 )
-					{
-						colorList += "<br />\r\n";
+
+	xhr.onreadystatechange = function() {
+		if (this.readyState === 4) {
+			if (this.status === 200) {
+				let json;
+				try {json = JSON.parse(xhr.responseText);}
+				catch {if (resultMsgEl) resultMsgEl.innerHTML = "Failed to parse server response."; return;}
+
+				const results = Array.isArray(json.results) ? json.results : [];
+
+				if (resultMsgEl) resultMsgEl.innerHTML = `${results.length} contact(s) found`;
+
+				if (listEl) {
+					if (results.length === 0) {
+						listEl.innerHTML = "<em>No matches.</em>";
+					} else {
+						const rows = results.map(r => {
+							const firstName = (r.firstName ?? "").toString();
+							const lastName = (r.lastName ?? "").toString();
+							const phone = (r.phone ?? "").toString();
+							const email = (r.email ?? "").toString();
+							return `<div class="contact-row">
+	   									<strong>${firstName} ${lastName}</strong><br>
+			 							<span>${phone}</span> &middot; <span>${email}</span>
+		   							</div>`;
+						});
+						listEl.innerHTML = rows.join("");
 					}
 				}
-				
-				document.getElementsByTagName("p")[0].innerHTML = colorList;
+			} else {
+				if (resultMsgEl) resultMsgEl.innerHTML = `Search failed (${this.status}).`;
 			}
-		};
+		}
+	};
+
+	try {
 		xhr.send(jsonPayload);
+	} catch (err) {
+		if (resultMsgEl) resultMsgEl.innerHTML = err.message;
 	}
-	catch(err)
-	{
-		document.getElementById("colorSearchResult").innerHTML = err.message;
-	}
-	
 }
 
 function deleteContact() //Dion-not updated yet
