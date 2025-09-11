@@ -5,20 +5,20 @@ let loginId = 0;
 let firstName = "";
 let lastName = "";
 
-function doLogin() //Alessandro-assuming fully compliant, pending HTMLs
+function doLogin(event) //Alessandro-updated 09/10/2025
 {
+	if (event) event.preventDefault(); // stop the form from reloading the page
+
 	loginId = 0;
 	firstName = "";
 	lastName = "";
 	
-	let login = document.getElementById("loginName").value; //"loginName" ties to id value in html
-	let password = document.getElementById("loginpassword").value;
-//	var hash = md5( password );
+	let login = document.getElementById("loginEmail").value; //"loginName" ties to id value in html
+	let password = document.getElementById("loginPassword").value;
 	
-	document.getElementById("loginResult").innerHTML = "";
+	//document.getElementById("loginResult").innerHTML = "";
 
 	let tmp = {login:login,password:password};
-//	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
 	
 	let url = urlBase + '/Login.' + extension;
@@ -37,7 +37,8 @@ function doLogin() //Alessandro-assuming fully compliant, pending HTMLs
 		
 				if( loginId < 1 )
 				{		
-					document.getElementById("loginResult").innerHTML = "login/password combination incorrect";
+					//document.getElementById("loginResult").innerHTML = "login/password combination incorrect";
+					console.log("login failed");
 					return;
 				}
 		
@@ -46,89 +47,73 @@ function doLogin() //Alessandro-assuming fully compliant, pending HTMLs
 
 				saveCookie();
 	
-				window.location.href = "color.html";
+				window.location.href = "holder.html";
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("loginResult").innerHTML = err.message;
+		//document.getElementById("loginResult").innerHTML = err.message;
+		console.log("issues something big login");
+
 	}
 
 }
 
-function doRegister() //Alessandro-fully updated pending HTMLs
+function doRegister(event) //Alessandro-updated 09/10/2025
 {
-	loginId = 0;
-	//firstName = "";
-	//lastName = "";
+  if (event) event.preventDefault(); // stop the form from reloading the page
 
-	//grab form then split the fields
-  console.log(document.getElementById("username").value);
-  console.log(document.getElementById("login").value);
-  console.log(document.getElementById("password").value);
+	loginId = 0;
   
-  //let fullName = document.getElementById("username").value;
-  //let splitname = fullName.split(" ");
-	let firstName = document.getElementById("username").value;
-	let lastName = document.getElementById("username").value;
-	let login = document.getElementById("login").value;
-	let password = document.getElementById("password").value;
- 
-  console.log(firstName);
-  console.log(lastName);
-  console.log(login);
-  console.log(password);
-  
-	//	var hash = md5( password );
-	
+	let fullName = document.getElementById("username").value;
+	let splitname = fullName.split(" ");
+  	let firstName = splitname[0];
+  	let lastName = splitname[1];
+  	let login = document.getElementById("login").value;
+  	let password = document.getElementById("password").value;
+
 	//document.getElementById("signupResult").innerHTML = "";
 
 	let tmp = {firstName:firstName,lastName:lastName,login:login,password:password};
-	//	var tmp = {login:login,password:hash};
 	let jsonPayload = JSON.stringify( tmp );
-	
 	let url = urlBase + '/Register.' + extension;
 
 	let xhr = new XMLHttpRequest();
 	xhr.open("POST", url, true);
 	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
- console.log("1");
 	try
 	{
 		xhr.onreadystatechange = function() 
 		{
-    console.log("4");
 			if (this.readyState == 4 && this.status == 200) 
 			{
 				let jsonObject = JSON.parse( xhr.responseText );
 				loginId = jsonObject.id;
-		    console.log("5");
+				
+				/* //want out for testing rn
 				if(!validRegister(firstName, lastName, login, password))
 				{		
 					//document.getElementById("signupResult").innerHTML = "You fucked up Registering";
-          console.log("issues 1");
-					return;
+          			console.log("5: error, invalid register somehow");
+					//return;
 				}
+				*/
 		
 				firstName = jsonObject.firstName;
 				lastName = jsonObject.lastName;
 
 				saveCookie();
-	      console.log("6");
-				window.location.href = "holder.html"; //pending update from FE, probably like contacts.html or something
-        console.log("7");
+				window.location.href = "login.html"; //pending update from FE, probably like contacts.html or something
 			}
 		}
-    console.log("2");
 		xhr.send(jsonPayload);
-    console.log("3");
 	}
 	catch(err)
 	{
 		//document.getElementById("loginResult").innerHTML = err.message;
-   console.log("issues 2");
+   		console.log("issues something big");
 	}
 
 }
@@ -152,7 +137,7 @@ function saveCookie() //Tyler-Updated
 	// Should save cookies as separate key-value pairs (untested)
 	document.cookie = `firstName=${encodeURIComponent(firstName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
 	document.cookie = `lastName=${encodeURIComponent(lastName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
-	document.cookie = `loginID=${encodeURIComponent(loginID)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
+	document.cookie = `loginId=${encodeURIComponent(loginId)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
 }
 
 
@@ -172,13 +157,13 @@ function readCookie() //Tyler-Updated
 
 		if (key == "firstName") firstName = decodeURIComponent(value || "");
 		else if (key == "lastName") lastName = decodeURIComponent(value || "");
-		else if (key == "loginID") {
+		else if (key == "loginId") {
 			const n = parseInt(decodeURIComponent(value || ""), 10);
-			loginID = Number.isFinite(n) ? n : -1;
+			loginId = Number.isFinite(n) ? n : -1;
 		}
 	}
 
-	if (loginID < 1) {
+	if (loginId < 1) {
 		window.location.href = "index.html" //Not logged in, send back to landing page
 	}
 }
@@ -235,7 +220,7 @@ function searchContact() //Tyler-Updated, unsure on API endpoints, untested
 	if (resultMsgEl) resultMsgEl.innerHTML = "";
 	if (listEl) listEl.innerHTML = "";
 
-	const tmp = {search: srch, loginID: loginID};
+	const tmp = {search: srch, loginId: loginId};
 	const jsonPayload = JSON.stringify(tmp);
 
 	const url = urlBase + '/SearchContacts.' + extension;
@@ -326,51 +311,7 @@ function deleteContact() //Dion-not updated yet
 
 function updateContact() //Dion-not updated yet
 {
-	let contactId = document.getElementById("updateContactId").value;
-        let newFirstName = document.getElementById("updateFirstName").value;
-        let newLastName = document.getElementById("updateLastName").value;
-        let newPhone = document.getElementById("updatePhone").value;
-        let newEmail = document.getElementById("updateEmail").value;
-
-        document.getElementById("contactUpdateResult").innerHTML = ""; 
-
-        let tmp = { 
-            id: contactId,
-            loginId: loginId,
-            firstName: newFirstName,
-            lastName: newLastName,
-            phone: newPhone,
-            email: newEmail
-        };
-
-        let jsonPayload = JSON.stringify(tmp); 
-    
-        let url = urlBase + '/UpdateContact.' + extension;
-    
-        let xhr = new XMLHttpRequest();
-        xhr.open("POST", url, true); 
-        xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-    
-        try {
-            xhr.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-		    // parse allows for the JSON response from api rather than simple log output
-                    let jsonObject = JSON.parse(xhr.responseText);
-
-                    if (jsonObject.error) {
-                        document.getElementById("contactUpdateResult").innerHTML = 
-                        "Error updating contact: " + jsonObject.error;
-                    } else {
-                        document.getElementById("contactUpdateResult").innerHTML = 
-                        "Contact updated successfully.";
-                    }
-                }
-            };
-             xhr.send(jsonPayload); 
-        } 
-         catch (err) {
-             document.getElementById("contactUpdateResult").innerHTML = err.message;
-        }
+	
 }
 
 function updatePassword() //Alessandro-not updated yet
@@ -440,5 +381,4 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
     return true;
 }
-
 
