@@ -1,4 +1,4 @@
-const urlBase = 'https://deepblue.page/LAMPAPI';
+nconst urlBase = 'https://deepblue.page/LAMPAPI';
 const extension = 'php';
 
 let loginId = 0;
@@ -169,12 +169,14 @@ function readCookie() //Tyler-Updated
 }
 
 
-function addContact() //Alessandro-update in progress
+function addContact(event) //Alessandro-update in progress
 {
-	let newFirstName = document.getElementById("colorText").value; //colorText for like firstName
-	let newLastName = document.getElementById("colorText").value;
-	let newPhone = document.getElementById("colorText").value;
-	let newEmail = document.getElementById("colorText").value;
+	if (event) event.preventDefault(); // stop the form from reloading the page
+	
+	let newFirstName = document.getElementById("firstName").value;
+	let newLastName = document.getElementById("lastName").value;
+	let newPhone = document.getElementById("phoneNumber").value;
+	let newEmail = document.getElementById("email").value;
 	document.getElementById("contactAddResult").innerHTML = "";
 
 	let tmp = {firstName:newFirstName,lastName:newLastName,phone:newPhone,email:newEmail};
@@ -191,21 +193,25 @@ function addContact() //Alessandro-update in progress
 		{
 			if (this.readyState == 4 && this.status == 200) 
 			{
-				if(true)//need to add return statement of th
+				/*
+				if(true)//need to add return statement
 				{
 					document.getElementById("contactAddResult").innerHTML = "Contact has already been added, go search them up";
+					console.log("not added");
 				}
 				else
 				{
 					document.getElementById("contactAddResult").innerHTML = "Contact has been added";
+					console.log("added");
 				}
+				*/
 			}
 		};
 		xhr.send(jsonPayload);
 	}
 	catch(err)
 	{
-		document.getElementById("contactAddResult").innerHTML = err.message;
+		//document.getElementById("contactAddResult").innerHTML = err.message;
 	}
 	
 }
@@ -381,5 +387,6 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
     return true;
 }
+
 
 
