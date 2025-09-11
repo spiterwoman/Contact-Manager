@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Deep Blue — Contact Info</title>
-  <link rel="stylesheet" href="contact.css" />
+  <link rel="stylesheet" href="css/contact.css" />
   <link rel="icon" type="image/png" href="assets/favicon/favicon.png" />
 </head>
 <body>
@@ -39,8 +39,8 @@
         
         <!-- Action buttons -->
         <div class="buttons">
-          <button id="updateBtn" class="cta" type="button">Update</button>
-          <button id="deleteBtn" class="cta" type="button">Delete</button>
+          <button id="updateBtn" class="cta" type="button" onclick="UpdateContact();" >Update</button>
+          <button id="deleteBtn" class="cta" type="button" onclick="DeleteContact();" >Delete</button>
           <button id="saveBtn" class="cta" type="submit" style="display:none;">Save</button>
           <button id="cancelBtn" class="cta" type="button" style="display:none;">Cancel</button>
         </div>
@@ -58,7 +58,9 @@
   </main>
 
   <!-- JS Scripts -->
-  <script src="bubbles.js"></script>
-  <script src="contact.js"></script>
+  <script src="js/bubbles.js"></script>
+  <script src="js/contact.js"></script>
+  <script src="js/code.js"></script>
 </body>
 </html>
+
