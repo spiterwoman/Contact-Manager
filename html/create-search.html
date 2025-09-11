@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deep Blue — Create / Search</title>
+  <link rel="stylesheet" href="create-search.css" />
+  <link rel="icon" type="image/png" href="assets/favicon/favicon.png" />
+</head>
+<body>
+
+  <!-- Background Fish & Bubbles -->
+  <div class="swimlane" aria-hidden="true"></div>
+  <div class="bubble-bed" aria-hidden="true"></div>
+
+  <main class="main">
+    <h1 class="header">Welcome, [First Name]!</h1>
+
+    <!-- Tab Headers (Swap between Create & Search) -->
+    <div class="card">
+      <div class="tabs" role="tablist" aria-label="Auth tabs">
+        <button id="tab-create" class="tab active" role="tab" aria-selected="true" aria-controls="panel-create">Create</button>
+        <button id="tab-search" class="tab" role="tab" aria-selected="false" aria-controls="panel-search">Search</button>
+      </div>
+
+      <!-- Create Panel -->
+      <form id="panel-create" class="panel active" role="tabpanel" aria-labelledby="tab-create" novalidate>
+        <label class="field">
+          <span>First Name</span>
+          <input type="text" id="firstName" required placeholder="Captain" />
+        </label>
+        <label class="field">
+          <span>Last Name</span>
+          <input type="text" id="lastName" required placeholder="Nemo" />
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" id="email" required placeholder="you@ocean.com" />
+        </label>
+        <label class="field">
+          <span>Phone</span>
+          <input type="phone" id="phone" required placeholder="XXX-XXX-XXXX" />
+        </label>
+        <button class="cta" type="submit">Create&nbsp;Contact</button>
+      </form>
+
+      <!-- Search Panel -->
+      <form id="panel-search" class="panel" role="tabpanel" aria-labelledby="tab-search" novalidate>
+        <label class="field">
+          <span>Search by Name</span>
+          <input type="text" id="searchInput" required placeholder="Captain Nemo" />
+        </label>
+        <ul id="results"></ul>
+      </form>
+    </div>
+
+    <button id="logoutBtn" type="button">Logout</button>
+  </main>
+
+  <!-- JS Scripts -->
+  <script src="bubbles.js"></script>
+  <script src="create-search.js"></script>
+</body>
+</html>

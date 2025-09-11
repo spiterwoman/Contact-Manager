@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Deep Blue — Contact Info</title>
+  <link rel="stylesheet" href="contact.css" />
+  <link rel="icon" type="image/png" href="assets/favicon/favicon.png" />
+</head>
+<body>
+
+  <!-- Background Fish & Bubbles -->
+  <div class="swimlane" aria-hidden="true"></div>
+  <div class="bubble-bed" aria-hidden="true"></div>
+
+  <!-- Contact Info Card -->
+  <main class="contact">
+    <h1><a href="create-search.html" class="home-link">Deep Blue</a></h1>
+
+    <!-- Contact Panel -->
+    <div class="card">
+      <form id="panel-contact" class="panel active" role="tabpanel" aria-labelledby="tab-contact" novalidate>
+        <label class="field">
+          <span>First Name</span>
+          <input type="text" id="firstName" required placeholder="Captain" disabled />
+        </label>
+        <label class="field">
+          <span>Last Name</span>
+          <input type="text" id="lastName" required placeholder="Nemo" disabled />
+        </label>
+        <label class="field">
+          <span>Email</span>
+          <input type="email" id="email" required placeholder="you@ocean.com" disabled />
+        </label>
+        <label class="field">
+          <span>Phone</span>
+          <input type="phone" id="phone" required placeholder="XXX-XXX-XXXX" disabled />
+        </label>
+        
+        <!-- Action buttons -->
+        <div class="buttons">
+          <button id="updateBtn" class="cta" type="button">Update</button>
+          <button id="deleteBtn" class="cta" type="button">Delete</button>
+          <button id="saveBtn" class="cta" type="submit" style="display:none;">Save</button>
+          <button id="cancelBtn" class="cta" type="button" style="display:none;">Cancel</button>
+        </div>
+      </form>
+
+    </div>
+
+    <div class="sand">
+      <img src="starfish.png" class="starfish">
+      <img src="treasureChest.png" class="treasureChest">
+    </div>
+
+    <button id="logoutBtn" type="button">Logout</button>
+
+  </main>
+
+  <!-- JS Scripts -->
+  <script src="bubbles.js"></script>
+  <script src="contact.js"></script>
+</body>
+</html>
