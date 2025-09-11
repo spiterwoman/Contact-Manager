@@ -29,13 +29,13 @@
       <form id="panel-login" class="panel active" role="tabpanel" aria-labelledby="tab-login" novalidate>
         <label class="field">
           <span>Email</span>
-          <input type="email" name="email" autocomplete="username" required placeholder="you@ocean.com" />
+          <input type="email" id="loginEmail" name="email" autocomplete="username" required placeholder="you@ocean.com" />
         </label>
         <label class="field">
           <span>Password</span>
-          <input type="password" name="password" autocomplete="current-password" required placeholder="••••••••" />
+          <input type="password" id="loginPassword" name="password" autocomplete="current-password" required placeholder="••••••••" />
         </label>
-        <button class="cta" type="submit">Login</button>
+        <button class="cta" type="submit" onclick="doLogin(event);">Login</button>
       </form>
 
       <!-- Register Panel -->
@@ -52,14 +52,14 @@
           <span>Password</span>
           <input type="password" id="password" name="password" autocomplete="new-password" required placeholder="Create a password" />
         </label>
-        <button class="cta alt" type="submit" onclick="doRegister();">Create Account</button>
+        <button class="cta alt" type="submit" onclick="doRegister(event);">Create Account</button>
       </form>
     </div>
   </main>
 
   <!-- JS Scripts -->
-  <script src="bubbles.js"></script>
-  <script src="login.js"></script>
+  <script src="js/bubbles.js"></script>
+  <script src="js/login.js"></script>
   <script type="text/javascript" src="js/code.js"></script>
   <script type="text/javascript" src="js/md5.js"></script>
 </body>
