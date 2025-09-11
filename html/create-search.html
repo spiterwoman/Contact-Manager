@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Deep Blue — Create / Search</title>
-  <link rel="stylesheet" href="create-search.css" />
+  <link rel="stylesheet" href="css/create-search.css" />
   <link rel="icon" type="image/png" href="assets/favicon/favicon.png" />
 </head>
 <body>
@@ -41,7 +41,7 @@
           <span>Phone</span>
           <input type="phone" id="phoneNumber" required placeholder="XXX-XXX-XXXX" />
         </label>
-        <button class="cta" type="submit">Create&nbsp;Contact</button>
+        <button class="cta" type="submit" onclick="addContact(event);">Create&nbsp;Contact</button>
       </form>
 
       <!-- Search Panel -->
@@ -58,8 +58,10 @@
   </main>
 
   <!-- JS Scripts -->
-  <script src="bubbles.js"></script>
-  <script src="create-search.js"></script>
+  <script src="js/bubbles.js"></script>
+  <script src="js/create-search.js"></script>
+  <script src="js/code.js"></script>
 </body>
 </html>
+
 
