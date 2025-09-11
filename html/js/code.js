@@ -224,7 +224,7 @@ function searchContact() //Tyler-Updated, untested
 
 	if (resultMsg) resultMsg.innerHTML = "";
 
-	const tmp = {search: srch, loginId: loginId};
+	const tmp = {search: srch, userId: loginId};
 	const jsonPayload = JSON.stringify(tmp);
 
 	const url = urlBase + '/SearchContacts.' + extension;
@@ -383,6 +383,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
     return true;
 }
+
 
 
 
