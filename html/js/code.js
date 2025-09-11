@@ -216,15 +216,13 @@ function addContact(event) //Alessandro-update in progress
 	
 }
 
-function searchContact() //Tyler-Updated, unsure on API endpoints, untested
+function searchContact() //Tyler-Updated, untested
 {
-	const srch = document.getElementById("searchText").value.trim();
+	const srch = document.getElementById("searchInput").value.trim();
 
-	const resultMsgEl = document.getElementById("contactSearchResult");
-	const listEl = document.getElementById("contactList");
+	const resultMsg = document.getElementById("results");
 
-	if (resultMsgEl) resultMsgEl.innerHTML = "";
-	if (listEl) listEl.innerHTML = "";
+	if (resultMsg) resultMsg.innerHTML = "";
 
 	const tmp = {search: srch, loginId: loginId};
 	const jsonPayload = JSON.stringify(tmp);
@@ -240,31 +238,29 @@ function searchContact() //Tyler-Updated, unsure on API endpoints, untested
 			if (this.status === 200) {
 				let json;
 				try {json = JSON.parse(xhr.responseText);}
-				catch {if (resultMsgEl) resultMsgEl.innerHTML = "Failed to parse server response."; return;}
+				catch {if (resultMsg) resultMsg.innerHTML = "Failed to parse server response."; return;}
 
 				const results = Array.isArray(json.results) ? json.results : [];
 
-				if (resultMsgEl) resultMsgEl.innerHTML = `${results.length} contact(s) found`;
-
-				if (listEl) {
+				if (resultMsg) {
 					if (results.length === 0) {
-						listEl.innerHTML = "<em>No matches.</em>";
+						resultMsg.innerHTML = "<em>No matches.</em>";
 					} else {
 						const rows = results.map(r => {
-							const firstName = (r.firstName ?? "").toString();
-							const lastName = (r.lastName ?? "").toString();
-							const phone = (r.phone ?? "").toString();
-							const email = (r.email ?? "").toString();
+							const firstName = (r.Firstname ?? "").toString();
+							const lastName = (r.LastName ?? "").toString();
+							const phoneNumber = (r.Phone ?? "").toString();
+							const email = (r.Email ?? "").toString();
 							return `<div class="contact-row">
 	   									<strong>${firstName} ${lastName}</strong><br>
-			 							<span>${phone}</span> &middot; <span>${email}</span>
+			 							<span>${phoneNumber}</span> &middot; <span>${email}</span>
 		   							</div>`;
 						});
-						listEl.innerHTML = rows.join("");
+                        resultMsg.innerHTML = `<div><strong>${results.length} contact(s) found</strong></div>${rows.join("")}`;
 					}
 				}
 			} else {
-				if (resultMsgEl) resultMsgEl.innerHTML = `Search failed (${this.status}).`;
+				if (resultMsg) resultMsg.innerHTML = `Search failed (${this.status}).`;
 			}
 		}
 	};
@@ -272,7 +268,7 @@ function searchContact() //Tyler-Updated, unsure on API endpoints, untested
 	try {
 		xhr.send(jsonPayload);
 	} catch (err) {
-		if (resultMsgEl) resultMsgEl.innerHTML = err.message;
+		if (resultMsg) resultMsg.innerHTML = err.message;
 	}
 }
 
@@ -387,6 +383,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
     return true;
 }
+
 
 
 
