@@ -47,7 +47,7 @@ function doLogin(event) //Alessandro-updated 09/10/2025
 
 				saveCookie();
 	
-				window.location.href = "holder.html";
+				window.location.href = "create-search.html";
 			}
 		};
 		xhr.send(jsonPayload);
@@ -381,4 +381,5 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
     return true;
 }
+
 
