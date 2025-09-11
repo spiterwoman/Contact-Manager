@@ -216,8 +216,10 @@ function addContact(event) //Alessandro-update in progress
 	
 }
 
-function searchContact() //Tyler-Updated, untested
+function searchContact(event) //Tyler-Updated, untested
 {
+	if (event) event.preventDefault();
+	
 	const srch = document.getElementById("searchInput").value.trim();
 
 	const resultMsg = document.getElementById("results");
@@ -383,6 +385,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
     return true;
 }
+
 
 
 
