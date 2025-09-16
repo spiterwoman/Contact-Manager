@@ -387,6 +387,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
     return true;
 }
 
+document.getElementById("panel-search").addEventListener("submit", searchContact);
 
 
 
