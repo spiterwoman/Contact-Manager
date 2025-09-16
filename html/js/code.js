@@ -177,7 +177,7 @@ function addContact(event) //Alessandro-update in progress
 	let newLastName = document.getElementById("lastName").value;
 	let newPhone = document.getElementById("phoneNumber").value;
 	let newEmail = document.getElementById("email").value;
-	document.getElementById("contactAddResult").innerHTML = "";
+	//document.getElementById("contactAddResult").innerHTML = "";
 
 	let tmp = {firstName:newFirstName,lastName:newLastName,phone:newPhone,email:newEmail};
 	let jsonPayload = JSON.stringify( tmp );
@@ -205,6 +205,7 @@ function addContact(event) //Alessandro-update in progress
 					console.log("added");
 				}
 				*/
+				console.log("added");
 			}
 		};
 		xhr.send(jsonPayload);
@@ -385,6 +386,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
     return true;
 }
+
 
 
 
