@@ -24,6 +24,8 @@ function activate(which) {
 tabCreate?.addEventListener("click", () => activate("Create"));
 tabSearch?.addEventListener("click", () => activate("Search"));
 
+document.getElementById("panel-search").addEventListener("submit", searchContact);
+
 // Fish Images
 const FISH_IMAGES = [
   "assets/fish/purpleBlueFish.png",
