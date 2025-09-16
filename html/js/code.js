@@ -181,7 +181,7 @@ function addContact(event) //Alessandro-update in progress
 
 	readCookie();
 
-	let tmp = {firstName:newFirstName,lastName:newLastName,phoneNumber:newPhone,email:newEmail};
+	let tmp = {firstName:newFirstName,lastName:newLastName,phoneNumber:newPhone,email:newEmail,userId:loginId};
 	let jsonPayload = JSON.stringify( tmp );
 
 	let url = urlBase + '/CreateContact.' + extension;
@@ -391,6 +391,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 }
 
 document.getElementById("panel-search").addEventListener("submit", searchContact);
+
 
 
 
