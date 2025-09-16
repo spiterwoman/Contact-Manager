@@ -26,7 +26,7 @@
 				$searchResults .= ",";
 			}
 			$searchCount++;
-			$searchResults .= '{ "Firstname" : "' . $row["FirstName"] . '", "LastName" : "' . $row["LastName"] . '", "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '", }';
+			$searchResults .= '{ "Firstname" : "' . $row["FirstName"] . '", "LastName" : "' . $row["LastName"] . '", "Phone" : "' . $row["Phone"] . '", "Email" : "' . $row["Email"] . '" }';
 		}
 		
 		if( $searchCount == 0 )
@@ -65,4 +65,5 @@
 		sendResultInfoAsJson( $retValue );
 	}
 	
+
 ?>
