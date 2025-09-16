@@ -225,6 +225,7 @@ function searchContact(event) //Tyler-Updated, untested
 	
 	const srch = document.getElementById("searchInput").value.trim();
 
+	readCookie();
 	const resultMsg = document.getElementById("results");
 
 	if (resultMsg) resultMsg.innerHTML = "";
@@ -390,6 +391,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 }
 
 document.getElementById("panel-search").addEventListener("submit", searchContact);
+
 
 
 
