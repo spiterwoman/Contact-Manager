@@ -209,7 +209,7 @@ function addContact(event) //Alessandro-update in progress
 				*/
 				console.log("added contact");
 			}
-		};
+		}
 		xhr.send(jsonPayload);
 	}
 	catch(err)
@@ -391,6 +391,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 }
 
 document.getElementById("panel-search").addEventListener("submit", searchContact);
+
 
 
 
