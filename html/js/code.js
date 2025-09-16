@@ -1,4 +1,4 @@
-nconst urlBase = 'https://deepblue.page/LAMPAPI';
+const urlBase = 'https://deepblue.page/LAMPAPI';
 const extension = 'php';
 
 let loginId = 0;
@@ -390,6 +390,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 }
 
 document.getElementById("panel-search").addEventListener("submit", searchContact);
+
 
 
 
