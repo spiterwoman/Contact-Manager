@@ -26,6 +26,14 @@ tabSearch?.addEventListener("click", () => activate("Search"));
 
 document.getElementById("panel-search").addEventListener("submit", searchContact);
 
+// Directs to contact.html when a contact is clicked
+document.getElementById("results").addEventListener("click", (e) => {
+    const row = e.target.closest(".contact-row");
+    if (!row) return;
+
+    window.location.href = "contact.html";
+});
+
 // Fish Images
 const FISH_IMAGES = [
   "assets/fish/purpleBlueFish.png",
@@ -84,4 +92,5 @@ if (lane) {
   function rand(min, max){ 
     return Math.random() * (max - min) + min; 
   }
+
 }
