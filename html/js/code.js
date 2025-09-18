@@ -4,6 +4,10 @@ const extension = 'php';
 let loginId = 0;
 let firstName = "";
 let lastName = "";
+let contactFirstName = "";
+let contactLastName = "";
+let contactEmail = "";
+let contactPhone = "";
 
 function doLogin(event) //Alessandro-updated 09/10/2025
 {
@@ -140,6 +144,15 @@ function saveCookie() //Tyler-Updated
 	document.cookie = `loginId=${encodeURIComponent(loginId)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
 }
 
+function saveContact(contactFirstName, contactLastName, contactEmail, contactPhone) {
+    const maxAge = 20 * 60; // 20 minutes
+
+    document.cookie = `contactFirstName=${encodeURIComponent(contactFirstName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
+    document.cookie = `contactLastName=${encodeURIComponent(contactLastName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
+    document.cookie = `contactEmail=${encodeURIComponent(contactEmail)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
+    document.cookie = `contactPhone=${encodeURIComponent(contactPhone)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
+}
+
 
 function readCookie() //Tyler-Updated
 {
@@ -168,6 +181,15 @@ function readCookie() //Tyler-Updated
 	}
 }
 
+function getCookie(name) {
+    const cookies = document.cookie.split(";").map(c => c.trim());
+    for (const cookie of cookies) {
+        if (cookie.startsWith(name + "=")) {
+            return decodeURIComponent(cookie.substring(name.length + 1));
+        }
+    }
+    return null;
+}
 
 function addContact(event) //Alessandro-update in progress
 {
