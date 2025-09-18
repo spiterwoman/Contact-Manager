@@ -22,19 +22,19 @@
       <form id="panel-contact" class="panel active" role="tabpanel" aria-labelledby="tab-contact" novalidate>
         <label class="field">
           <span>First Name</span>
-          <input type="text" id="firstName" required placeholder="Captain" disabled />
+          <input type="text" id="firstName" required placeholder="Captain" />
         </label>
         <label class="field">
           <span>Last Name</span>
-          <input type="text" id="lastName" required placeholder="Nemo" disabled />
+          <input type="text" id="lastName" required placeholder="Nemo" />
         </label>
         <label class="field">
           <span>Email</span>
-          <input type="email" id="email" required placeholder="you@ocean.com" disabled />
+          <input type="email" id="email" required placeholder="you@ocean.com" />
         </label>
         <label class="field">
           <span>Phone</span>
-          <input type="phone" id="phone" required placeholder="XXX-XXX-XXXX" disabled />
+          <input type="phone" id="phone" required placeholder="XXX-XXX-XXXX" />
         </label>
         
         <!-- Action buttons -->
@@ -49,11 +49,11 @@
     </div>
 
     <div class="sand">
-      <img src="starfish.png" class="starfish">
-      <img src="treasureChest.png" class="treasureChest">
+      <img src="assets/starfish/starfish.png" class="starfish">
+      <img src="assets/treasureChest/treasureChest.png" class="treasureChest">
     </div>
 
-    <button id="logoutBtn" type="button">Logout</button>
+    <button id="logoutBtn" type="button" onclick="doLogout();">Logout</button>
 
   </main>
 
