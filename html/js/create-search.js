@@ -27,6 +27,16 @@ tabSearch?.addEventListener("click", () => activate("Search"));
 document.getElementById("panel-search").addEventListener("submit", searchContact);
 document.getElementById("panel-create").addEventListener("submit", addContact);
 
+// update header to show user name when logged in
+window.addEventListener("DOMContentLoaded", () => {
+    readCookie();
+
+    const header = document.querySelector(".header");
+    if (header) {
+        header.textContent = `Welcome, ${firstName} ${lastName}!`;
+    }
+});
+
 // Directs to contact.html when a contact is clicked
 document.getElementById("results").addEventListener("click", (e) => {
     const row = e.target.closest(".contact-row");
