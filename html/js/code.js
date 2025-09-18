@@ -332,19 +332,20 @@ function deleteContact(event) {
   const idElement = document.getElementById("deleteContactId");
   const resultElement = document.getElementById("contactDeleteResult");
   if (resultElement) resultElement.innerHTML = "";
+  
+  if (typeof readContact === "function") readContact();
+  if (typeof readCookie === "function") readCookie();
 
-  const contactId = idElement ? idElement.value : null;
+  	// contactId = idElement ? idElement.value : null;
   if (!contactId) {
     if (resultElement) resultElement.textContent = "No contact selected to delete.";
     if (typeof showNotification === "function") showNotification("No contact selected to delete.");
     return;
   }
-  
-  if (typeof readCookie === "function") readCookie();
 
   // Runs API Delete Call
   const runDelete = () => {
-    const tmp = { id: contactId, loginId: loginId };
+    const tmp = { id: contactId, userId: loginId };
     const jsonPayload = JSON.stringify(tmp);
     const url = urlBase + '/DeleteContact.' + extension;
 
