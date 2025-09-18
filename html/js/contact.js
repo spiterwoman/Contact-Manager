@@ -10,6 +10,21 @@ const FISH_IMAGES = [
   "assets/fish/pinkFish.png"
 ];
 
+// Setting placeholders with contact info
+window.addEventListener("DOMContentLoaded", () => {
+    const contactFirstName = getCookie("contactFirstName");
+    const contactLastName = getCookie("contactLastName");
+    const contactEmail = getCookie("contactEmail");
+    const contactPhone = getCookie("contactPhone");
+
+    // Set placeholders (or values) if found
+    if (contactFirstName) document.getElementById("firstName").placeholder = contactFirstName;
+    if (contactLastName)  document.getElementById("lastName").placeholder  = contactLastName;
+    if (contactEmail)     document.getElementById("email").placeholder     = contactEmail;
+    if (contactPhone)     document.getElementById("phone").placeholder     = contactPhone;
+
+});
+
 // Where fish will spawn + how many, duration, size, etc
 const lane = document.querySelector(".swimlane");
 if (lane) {
