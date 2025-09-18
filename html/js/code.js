@@ -504,7 +504,7 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
     return true;
 }
 
-// Helper for "Contact has been created" notif
+// Helper for "Contact has been deleted/created" notif
 function showNotification(message) {
   const notificationBanner = document.getElementById("notification");
   if (!notificationBanner) return;
