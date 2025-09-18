@@ -190,6 +190,8 @@ body {
   margin-top: 0.5rem;
   list-style: none;
   padding: 0;
+  max-height: 340px;
+  overflow-y: auto;
 }
 #results li {
   padding: 0.5rem;
