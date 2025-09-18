@@ -12,10 +12,13 @@
   margin: 0;
   padding: 0;
 }
-body {
+html, body {
   font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
   background: var(--deep);
   color: #E6F4FF;
+
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 /* Title Home Link */
