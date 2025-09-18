@@ -210,7 +210,7 @@ function readContact() //Alessandro made
 		}
 	}
 
-	if (contactId < 1) {
+	if (contactId < 0) {
 		console.log("contact ID not found"); //Not logged in, send back to landing page
 	}
 }
@@ -304,10 +304,11 @@ function searchContact(event) //Tyler-Updated, untested
 							const lastName = (r.LastName ?? "").toString();
 							const phoneNumber = (r.Phone ?? "").toString();
 							const email = (r.Email ?? "").toString();
-							return `<div class="contact-row">
-	   									<strong>${firstName} ${lastName}</strong><br>
-			 							<span>${phoneNumber}</span> &middot; <span>${email}</span>
-		   							</div>`;
+							const tempContactID = (r.ID ?? "");
+							return `<div class="contact-row" data-id="${tempContactID}">
+										<strong>${firstName} ${lastName}</strong><br>
+										<span>${phoneNumber}</span> &middot; <span>${email}</span>
+									</div>`;
 						});
                         resultMsg.innerHTML = `<div><strong>${results.length} contact(s) found</strong></div>${rows.join("")}`;
 					}
@@ -372,7 +373,8 @@ function updateContact() //Dion-not updated yet
     let updateLastName = document.getElementById("lastName").value;
     let updateEmail = document.getElementById("email").value;
     let updatePhone = document.getElementById("phone").value;
-
+    
+    readContact();
     readCookie();
 
     let tmp = {firstName: updateFirstName, lastName: updateLastName, email: updateEmail, phone: updatePhone, userId: loginId, contactId: contactId};
