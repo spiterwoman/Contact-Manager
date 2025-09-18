@@ -342,7 +342,35 @@ function deleteContact() //Dion-not updated yet
 
 function updateContact() //Dion-not updated yet
 {
-	
+	if (event) event.preventDefault();
+
+    let updateFirstName = document.getElementById("firstName").value;
+    let updateLastName = document.getElementById("lastName").value;
+    let updateEmail = document.getElementById("email").value;
+    let updatePhone = document.getElementById("phone").value;
+
+    readCookie()
+
+    let tmp = {firstName: updateFirstName, lastName: updateLastName, email: updateEmail, phone: updatePhone, userId: loginId};
+    let jsonPayload = JSON.stringify(tmp);
+
+    let url = urlBase + '/UpdateContact.' + extension;
+
+    let xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+    try {
+        xhr.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                console.log("Contact Updated");
+
+            }
+        }
+        xhr.send(jsonPayload);
+    }
+    catch (err) {
+        //document.getElementById("contactUpdateResult").innerHTML = err.message;
+    }
 }
 
 function updatePassword() //Alessandro-not updated yet
@@ -423,6 +451,7 @@ function showNotification(message) {
   clearTimeout(showNotification._t);
   showNotification._t = setTimeout(() => { el.hidden = true; }, 3000);
 }
+
 
 
 
