@@ -301,44 +301,80 @@ function searchContact(event) //Tyler-Updated, untested
 	}
 }
 
-function deleteContact() //Dion-not updated yet
-{
-	let contactId = document.getElementById("deleteContactId").value;
-	document.getElementById("contactDeleteResult").innerHTML = ""; 
-	
-	let tmp = { 
-	  id: contactId,
-	  loginId: loginId
-	};
+function deleteContact(event) {
+  if (event) event.preventDefault();
 
-	let jsonPayload = JSON.stringify(tmp); 
-	
-	let url = urlBase + '/DeleteContact.' + extension;
-	
-	let xhr = new XMLHttpRequest();
-	xhr.open("POST", url, true); 
-	xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
-	try {
-	    xhr.onreadystatechange = function () {
-                if (this.readyState == 4 && this.status == 200) {
-                    let jsonObject = JSON.parse(xhr.responseText);
+  const idElement = document.getElementById("deleteContactId");
+  const resultElement = document.getElementById("contactDeleteResult");
+  if (resultElement) resultElement.innerHTML = "";
 
-                    if (jsonObject.error) {
-                        document.getElementById("contactDeleteResult").innerHTML = 
-                            "Error deleting contact: " + jsonObject.error;
-               	    } else {
-                        document.getElementById("contactDeleteResult").innerHTML = 
-                            "Contact deleted successfully.";
-                    }
-                }
-            };
-            xhr.send(jsonPayload); 
-    	} 
-    	catch (err) {
-            document.getElementById("contactDeleteResult").innerHTML = err.message;
-    	}
-   	
+  const contactId = idElement ? idElement.value : null;
+  if (!contactId) {
+    if (resultElement) resultElement.textContent = "No contact selected to delete.";
+    if (typeof showNotification === "function") showNotification("No contact selected to delete.");
+    return;
+  }
+  
+  if (typeof readCookie === "function") readCookie();
+
+  // Runs API Delete Call
+  const runDelete = () => {
+    const tmp = { id: contactId, loginId: loginId };
+    const jsonPayload = JSON.stringify(tmp);
+    const url = urlBase + '/DeleteContact.' + extension;
+
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/json; charset=UTF-8");
+
+    xhr.onreadystatechange = function () {
+      if (this.readyState === 4) {
+        if (this.status === 200) {
+          let jsonObject = {};
+          try { jsonObject = JSON.parse(xhr.responseText); } catch {}
+
+          if (jsonObject.error) {
+            if (resultElement) resultElement.textContent = "Error deleting contact: " + jsonObject.error;
+            if (typeof showNotification === "function") showNotification("Failed to delete contact");
+          } else {
+            if (resultElement) resultElement.textContent = "Contact deleted successfully.";
+            if (typeof showNotification === "function") showNotification("Contact has been deleted");
+          }
+        } else {
+          if (resultElement) resultElement.textContent = `Delete failed (${this.status}).`;
+          if (typeof showNotification === "function") showNotification("Failed to delete contact");
+        }
+      }
+    };
+
+    try {
+      xhr.send(jsonPayload);
+    } catch (err) {
+      if (resultElement) resultEl.textContent = err.message;
+      if (typeof showNotification === "function") showNotification("Failed to delete contact");
+    }
+  };
+
+  // Confimation dialog
+  const banner = document.getElementById("delete-confirm");
+  if (!banner) {
+    if (window.confirm("Are you sure you want to delete this contact?")) runDelete();
+    return;
+  }
+
+  banner.innerHTML = `
+    <span>Are you sure you want to delete this contact?</span>
+    <span style="flex:1"></span>
+    <button id="notifYes" class="cta alt" type="button" style="margin-left:8px;">Yes</button>
+    <button id="notifNo"  class="cta"     type="button" style="margin-left:6px;">No</button>
+  `;
+  banner.hidden = false;
+
+  const cleanup = () => { banner.hidden = true; banner.innerHTML = ""; };
+  banner.querySelector("#notifYes").onclick = () => { cleanup(); runDelete(); };
+  banner.querySelector("#notifNo").onclick  = () => { cleanup(); };
 }
+
 
 function updateContact() //Dion-not updated yet
 {
@@ -443,20 +479,11 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
 
 // Helper for "Contact has been created" notif
 function showNotification(message) {
-  const el = document.getElementById("notification");
-  if (!el) return;
-  el.textContent = message;
-  el.hidden = false;
-  console.log(el);
+  const notificationBanner = document.getElementById("notification");
+  if (!notificationBanner) return;
+  notificationBanner.textContent = message;
+  notificationBanner.hidden = false;
+  console.log(notificationBanner);
   clearTimeout(showNotification._t);
-  showNotification._t = setTimeout(() => { el.hidden = true; }, 3000);
+  showNotification._t = setTimeout(() => { notificationBanner.hidden = true; }, 3000);
 }
-
-
-
-
-
-
-
-
-
