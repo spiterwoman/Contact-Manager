@@ -208,6 +208,7 @@ function addContact(event) //Alessandro-update in progress
 				}
 				*/
 				console.log("added contact");
+				showNotification("Contact has been created");
 			}
 		}
 		xhr.send(jsonPayload);

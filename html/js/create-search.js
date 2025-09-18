@@ -25,6 +25,7 @@ tabCreate?.addEventListener("click", () => activate("Create"));
 tabSearch?.addEventListener("click", () => activate("Search"));
 
 document.getElementById("panel-search").addEventListener("submit", searchContact);
+document.getElementById("panel-create").addEventListener("submit", addContact);
 
 // Directs to contact.html when a contact is clicked
 document.getElementById("results").addEventListener("click", (e) => {
@@ -94,3 +95,14 @@ if (lane) {
   }
 
 }
+
+// Helper for "Contact has been created" notif
+function showNotification(message) {
+  const el = document.getElementById("notification");
+  if (!el) return;
+  el.textContent = message;
+  el.hidden = false;
+  clearTimeout(showNotification._t);
+  showNotification._t = setTimeout(() => { el.hidden = true; }, 3000);
+}
+
