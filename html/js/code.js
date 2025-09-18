@@ -271,7 +271,7 @@ function searchContact(event) //Tyler-Updated, untested
 	if (event) event.preventDefault();
 	
 	const srch = document.getElementById("searchInput").value.trim();
-
+	readContact();
 	readCookie();
 	const resultMsg = document.getElementById("results");
 
@@ -326,7 +326,8 @@ function searchContact(event) //Tyler-Updated, untested
 	}
 }
 
-function deleteContact(event) {
+function deleteContact(event) //Chrystel updated
+{
   if (event) event.preventDefault();
 
   const idElement = document.getElementById("deleteContactId");
@@ -399,7 +400,6 @@ function deleteContact(event) {
   banner.querySelector("#notifYes").onclick = () => { cleanup(); runDelete(); };
   banner.querySelector("#notifNo").onclick  = () => { cleanup(); };
 }
-
 
 function updateContact() //Dion-not updated yet
 {
@@ -514,3 +514,11 @@ function showNotification(message) {
   clearTimeout(showNotification._t);
   showNotification._t = setTimeout(() => { notificationBanner.hidden = true; }, 3000);
 }
+
+
+
+
+
+
+
+
