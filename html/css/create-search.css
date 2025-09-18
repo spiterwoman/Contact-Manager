@@ -21,7 +21,6 @@ body {
   font-family: system-ui, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
   background: radial-gradient(800px 400px at 50% -400px, #0460C9 0%, #034A93 20%, var(--deep) 50%, var(--deep-2) 90%);
-  overflow: hidden;
 }
 
 /* Welcome Title */
@@ -37,7 +36,7 @@ body {
 .main {
   position: relative;
   z-index: 2;
-  height: 100%;
+  min-height: 100%;
   display: grid;
   place-items: center;
   padding: 2rem 1rem;
@@ -89,6 +88,12 @@ body {
 }
 .panel.active {
   display: block;
+}
+
+.card,
+#panel-search,
+#panel-create {
+  min-height: 0;
 }
 
 /* Notification for Add Contact*/
