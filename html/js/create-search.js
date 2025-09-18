@@ -104,13 +104,3 @@ if (lane) {
     return Math.random() * (max - min) + min; 
   }
 }
-
-// Helper for "Contact has been created" notif
-function showNotification(message) {
-  const el = document.getElementById("notification");
-  if (!el) return;
-  el.textContent = message;
-  el.hidden = false;
-  clearTimeout(showNotification._t);
-  showNotification._t = setTimeout(() => { el.hidden = true; }, 3000);
-}

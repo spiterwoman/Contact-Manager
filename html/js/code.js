@@ -413,6 +413,17 @@ function validRegister(firstName, lastName, login, password) //fully updated pen
     return true;
 }
 
+// Helper for "Contact has been created" notif
+function showNotification(message) {
+  const el = document.getElementById("notification");
+  if (!el) return;
+  el.textContent = message;
+  el.hidden = false;
+  console.log(el);
+  clearTimeout(showNotification._t);
+  showNotification._t = setTimeout(() => { el.hidden = true; }, 3000);
+}
+
 
 
 
