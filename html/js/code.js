@@ -8,6 +8,7 @@ let contactFirstName = "";
 let contactLastName = "";
 let contactEmail = "";
 let contactPhone = "";
+let contactId = 0;
 
 function doLogin(event) //Alessandro-updated 09/10/2025
 {
@@ -144,13 +145,15 @@ function saveCookie() //Tyler-Updated
 	document.cookie = `loginId=${encodeURIComponent(loginId)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
 }
 
-function saveContact(contactFirstName, contactLastName, contactEmail, contactPhone) {
+function saveContact() //Alessandro made
+{
     const maxAge = 20 * 60; // 20 minutes
 
     document.cookie = `contactFirstName=${encodeURIComponent(contactFirstName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
     document.cookie = `contactLastName=${encodeURIComponent(contactLastName)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
     document.cookie = `contactEmail=${encodeURIComponent(contactEmail)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
     document.cookie = `contactPhone=${encodeURIComponent(contactPhone)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
+    document.cookie = `contactId=${encodeURIComponent(contactId)}; max-age=${maxAge}; path=/; samesite=lax; secure`;
 }
 
 
@@ -181,14 +184,35 @@ function readCookie() //Tyler-Updated
 	}
 }
 
-function getCookie(name) {
-    const cookies = document.cookie.split(";").map(c => c.trim());
-    for (const cookie of cookies) {
-        if (cookie.startsWith(name + "=")) {
-            return decodeURIComponent(cookie.substring(name.length + 1));
-        }
-    }
-    return null;
+function readContact() //Alessandro made
+{
+	contactFirstName = "";
+ 	contactLastName = "";
+ 	contactEmail = "";
+ 	contactPhone = "";
+	contactId = 0;
+
+    const cookies = document.cookie.split(";");
+
+	for (const part of cookies) {
+		const [rawKey, ...rest] = part.trim().split("=");
+		const key = rawKey;
+		const value = rest.join("=");
+		if (!key) continue;
+
+		if (key == "contactFirstName") contactFirstName = decodeURIComponent(value || "");
+		else if (key == "contactLastName") contactLastName = decodeURIComponent(value || "");
+		else if (key == "contactEmail") contactEmail = decodeURIComponent(value || "");
+		else if (key == "contactPhone") contactPhone = decodeURIComponent(value || "");
+		else if (key == "contactId") {
+			const n = parseInt(decodeURIComponent(value || ""), 10);
+			contactId = Number.isFinite(n) ? n : -1;
+		}
+	}
+
+	if (contactId < 0) {
+		console.log("contact ID not found"); //Not logged in, send back to landing page
+	}
 }
 
 function addContact(event) //Alessandro-update in progress
@@ -280,10 +304,11 @@ function searchContact(event) //Tyler-Updated, untested
 							const lastName = (r.LastName ?? "").toString();
 							const phoneNumber = (r.Phone ?? "").toString();
 							const email = (r.Email ?? "").toString();
-							return `<div class="contact-row">
-	   									<strong>${firstName} ${lastName}</strong><br>
-			 							<span>${phoneNumber}</span> &middot; <span>${email}</span>
-		   							</div>`;
+							const tempContactID = (r.ID ?? "");
+							return `<div class="contact-row" data-id="${tempContactID}">
+										<strong>${firstName} ${lastName}</strong><br>
+										<span>${phoneNumber}</span> &middot; <span>${email}</span>
+									</div>`;
 						});
                         resultMsg.innerHTML = `<div><strong>${results.length} contact(s) found</strong></div>${rows.join("")}`;
 					}
@@ -378,16 +403,17 @@ function deleteContact(event) {
 
 function updateContact() //Dion-not updated yet
 {
-	if (event) event.preventDefault();
+    if (event) event.preventDefault();
 
     let updateFirstName = document.getElementById("firstName").value;
     let updateLastName = document.getElementById("lastName").value;
     let updateEmail = document.getElementById("email").value;
     let updatePhone = document.getElementById("phone").value;
+    
+    readContact();
+    readCookie();
 
-    readCookie()
-
-    let tmp = {firstName: updateFirstName, lastName: updateLastName, email: updateEmail, phone: updatePhone, userId: loginId};
+    let tmp = {firstName: updateFirstName, lastName: updateLastName, email: updateEmail, phone: updatePhone, userId: loginId, contactId: contactId};
     let jsonPayload = JSON.stringify(tmp);
 
     let url = urlBase + '/UpdateContact.' + extension;
@@ -407,6 +433,7 @@ function updateContact() //Dion-not updated yet
     catch (err) {
         //document.getElementById("contactUpdateResult").innerHTML = err.message;
     }
+	
 }
 
 function updatePassword() //Alessandro-not updated yet
