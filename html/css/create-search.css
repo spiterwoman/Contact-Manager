@@ -90,12 +90,6 @@ body {
   display: block;
 }
 
-.card,
-#panel-search,
-#panel-create {
-  min-height: 0;
-}
-
 /* Notification for Add Contact*/
 .notification {
   margin: 10px 0 0.5rem;
@@ -240,7 +234,7 @@ body {
 .swimlane {
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
   overflow: hidden;
 }
@@ -260,7 +254,72 @@ body {
   transform: translateY(0) scaleX(var(--flip,1));
 }
 
-/* Keyframes for Fish Animation */
+.bg-sea{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.shark{
+  position: absolute;
+  left: 0;
+  bottom: var(--sharkY, 22vh);
+  width: min(22vw, 300px);
+  aspect-ratio: 2.6 / 1;
+  background: url("../assets/shark/shark.png") no-repeat center/contain;
+  filter: drop-shadow(0 8px 14px rgba(0,0,0,.35));
+  opacity: .95;
+  pointer-events: none;
+}
+
+.shark.swim-right { animation: shark-right var(--swimDur, 60s) linear both; }
+.shark.swim-left { animation: shark-left var(--swimDur, 60s) linear both; }
+
+.jellies{
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.jelly-wrap{
+  position: absolute;
+  left: 0;
+  transform: translateY(110vh);
+  animation: float-up var(--rise, 28s) linear both;
+  will-change: transform;
+}
+
+.jelly{
+  display:  block;
+  width: clamp(20px, 2.4vw, 44px);
+  opacity: .75;
+  filter: drop-shadow(0 6px 8px rgba(0,0,0,.28));
+  animation: sway var(--sway, 6s) ease-in-out infinite alternate;
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Keyframes for Fish + Sea Life Animation */
+
+@keyframes float-up{
+  to   { transform: translateY(-30vh); }
+}
+@keyframes sway{
+  from {
+    transform:
+      translateX(calc(-1.6vw + var(--repelX, 0px)))
+      translateY(var(--repelY, 0px))
+      rotate(-2deg);
+  }
+  to {
+    transform:
+      translateX(calc( 1.6vw + var(--repelX, 0px)))
+      translateY(var(--repelY, 0px))
+      rotate( 2deg);
+  }
+}
 @keyframes swim-right {
   from { transform: translateX(-15vw); }
   to   { transform: translateX(115vw); }
@@ -268,6 +327,14 @@ body {
 @keyframes swim-left {
   from { transform: translateX(115vw); }
   to   { transform: translateX(-15vw); }
+}
+@keyframes shark-right {
+  from { transform: translateX(-35vw) scale(1); }
+  to   { transform: translateX(135vw) scale(1); }
+}
+@keyframes shark-left {
+  from { transform: translateX(135vw) scaleX(-1); }
+  to   { transform: translateX(-35vw) scaleX(-1); }
 }
 @keyframes bob {
   0%,100% { transform: translateY(0) scaleX(var(--flip,1)); }

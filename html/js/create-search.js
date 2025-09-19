@@ -114,3 +114,137 @@ if (lane) {
     return Math.random() * (max - min) + min; 
   }
 }
+
+// Spawn jellyfish
+(function(){
+  const root = document.querySelector(".jellies");
+  if (!root) return;
+
+  const variants = [
+    "assets/jellyfish/blue-jf.png",
+    "assets/jellyfish/pink-jf.png",
+    "assets/jellyfish/purple-jf.png",
+    "assets/jellyfish/teal-jf.png",
+  ];
+
+  const CAP = 6;
+
+function spawnOne() {
+  const wrap = document.createElement("div");
+  wrap.className = "jelly-wrap";
+
+  const img = document.createElement("img");
+  img.className = "jelly";
+  img.alt = "";
+  img.src = variants[(Math.random()*variants.length)|0];
+
+  const leftVW = Math.random()*100;
+  const rise   = 24 + Math.random()*18;
+  const sway   = 4  + Math.random()*5;
+  const dRise  = (Math.random()*10).toFixed(2);
+  const dSway  = (Math.random()*3 ).toFixed(2);
+  const px     = Math.round(20 + Math.random()*24);
+
+  wrap.style.left = `${leftVW}vw`;
+  wrap.style.setProperty("--rise", `${rise}s`);
+  wrap.style.animationDelay = `${dRise}s`;
+
+  img.style.setProperty("--sway", `${sway}s`);
+  img.style.animationDelay = `${dSway}s`;
+  img.style.width = `${px}px`;
+
+  wrap.appendChild(img);
+  root.appendChild(wrap);
+
+  wrap.addEventListener("animationend", () => {
+    wrap.remove();
+    spawnOne(); 
+  }, { once: true });
+}
+
+for (let i = 0; i < CAP; i++) spawnOne();
+
+
+// Mouse
+const RADIUS   = 140;  
+const MAX_PUSH = 70;  
+const EASE     = 0.08; 
+
+const OFFSETS = new WeakMap();
+let mx = -9999, my = -9999;
+
+window.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; }, { passive: true });
+window.addEventListener('touchmove', e => {
+  const t = e.touches[0];
+  if (t) { mx = t.clientX; my = t.clientY; }
+}, { passive: true });
+
+function tick() {
+  root.querySelectorAll('.jelly').forEach(el => {
+    const rect = el.getBoundingClientRect();
+    const cx = rect.left + rect.width  / 2;
+    const cy = rect.top  + rect.height / 2;
+
+    const dx = cx - mx;
+    const dy = cy - my;
+    const dist = Math.hypot(dx, dy);
+
+    let tx = 0, ty = 0;
+    if (dist < RADIUS) {
+      const strength = 1 - dist / RADIUS;
+      const nx = dx / (dist || 1);   
+      const ny = dy / (dist || 1);
+      tx = nx * strength * MAX_PUSH;
+      ty = ny * strength * MAX_PUSH;
+    }
+
+    const s = OFFSETS.get(el) || { x: 0, y: 0 };
+    s.x += (tx - s.x) * EASE;
+    s.y += (ty - s.y) * EASE;
+    OFFSETS.set(el, s);
+
+    el.style.setProperty('--repelX', `${s.x}px`);
+    el.style.setProperty('--repelY', `${s.y}px`);
+  });
+
+  requestAnimationFrame(tick);
+}
+tick();
+
+})();
+
+// Shark
+(function () {
+  const sea = document.querySelector(".bg-sea");
+  if (!sea) return;
+
+  let inFlight = false;
+
+  function spawnShark() {
+    if (inFlight) return;
+    inFlight = true;
+
+    const shark = document.createElement("div");
+    shark.className = "shark";
+
+    const y = 10 + Math.random() * 50;
+    const goRight = Math.random() < 0.5;
+
+    const dur = 55 + Math.random() * 35;
+
+    shark.style.setProperty("--sharkY", `${y}vh`);
+    shark.style.setProperty("--swimDur", `${dur}s`);
+    shark.classList.add(goRight ? "swim-right" : "swim-left");
+
+    sea.appendChild(shark);
+
+    shark.addEventListener("animationend", () => {
+      shark.remove();
+      inFlight = false;
+      setTimeout(spawnShark, 8000 + Math.random() * 16000);
+    }, { once: true });
+  }
+
+  setTimeout(spawnShark, 3000 + Math.random() * 5000);
+  setInterval(() => { if (!inFlight) spawnShark(); }, 30000);
+})();
