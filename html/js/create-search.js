@@ -37,6 +37,15 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 });
 
+// show update/delete notif
+window.addEventListener("DOMContentLoaded", () => {
+  const message = sessionStorage.getItem("notification");
+  if (message) {
+    showNotification(message);
+    sessionStorage.removeItem("notification");
+  }
+});
+
 // Directs to contact.html when a contact is clicked
 document.getElementById("results").addEventListener("click", (e) => {
     const row = e.target.closest(".contact-row");
