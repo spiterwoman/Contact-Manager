@@ -48,9 +48,11 @@ document.getElementById("results").addEventListener("click", (e) => {
     contactLastName = nameParts[1] ?? "";
     contactPhone = row.querySelectorAll("span")[0]?.textContent.trim() ?? "";
     contactEmail = row.querySelectorAll("span")[1]?.textContent.trim() ?? "";
+    contactId = row.dataset.id;
 
     // Save to cookies
     saveContact();
+    console.log(contactId);
 
     window.location.href = "contact.html";
 });

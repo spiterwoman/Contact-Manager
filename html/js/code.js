@@ -402,7 +402,7 @@ function deleteContact(event) //Chrystel updated
   banner.querySelector("#notifNo").onclick  = () => { cleanup(); };
 }
 
-function updateContact() //Dion-not updated yet
+function updateContact(event) //Dion-not updated yet
 {
     if (event) event.preventDefault();
 
