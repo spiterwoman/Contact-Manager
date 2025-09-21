@@ -44,16 +44,18 @@ document.getElementById("results").addEventListener("click", (e) => {
 
     // Extract data from row
     const nameParts = row.querySelector("strong").textContent.trim().split(" ");
-    const contactFirstName = nameParts[0] ?? "";
-    const contactLastName = nameParts[1] ?? "";
-    const contactPhone = row.querySelectorAll("span")[0]?.textContent.trim() ?? "";
-    const contactEmail = row.querySelectorAll("span")[1]?.textContent.trim() ?? "";
+    contactFirstName = nameParts[0] ?? "";
+    contactLastName = nameParts[1] ?? "";
+    contactPhone = row.querySelectorAll("span")[0]?.textContent.trim() ?? "";
+    contactEmail = row.querySelectorAll("span")[1]?.textContent.trim() ?? "";
 
     // Save to cookies
-    saveContact(contactFirstName, contactLastName, contactEmail, contactPhone);
+    saveContact();
 
     window.location.href = "contact.html";
 });
+
+
 
 // Fish Images
 const FISH_IMAGES = [
