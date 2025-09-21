@@ -237,19 +237,74 @@ body {
   z-index: -9999;
 }
 
-.starfish {
-    position: fixed;
-    bottom: 30px;
-    right: 50px;
-    width: 50px;
-    height: auto;
-    animation: bob 5s ease-in-out infinite alternate;
+.starfish1 {
+  position: fixed;
+  bottom: 100px;
+  right: 50px;
+  width: 50px;
+  height: auto;
+  animation: bob 5s ease-in-out infinite alternate;
 }
 
-.treasureChest {
-    position: fixed;
-    bottom: 20px;
-    left: 50px;
-    width: 175px;
-    height: auto;
+.starfish2 {
+  position: fixed;
+  bottom: 100px;
+  left: 30px;
+  width: 70px;
+  height: auto;
+  animation: bob 5s ease-in-out infinite alternate;
+}
+
+.closedChest {
+  position: fixed;
+  bottom: 10px;
+  left:100px;
+  width: 175px;
+  height: auto;
+  cursor: pointer;
+}
+
+.openChest {
+  position: fixed;
+  bottom: -10px;
+  left: 60px;
+  width: 225px;
+  height: auto;
+  cursor: pointer;
+}
+
+.seaweed1 {
+  position: fixed;
+  bottom: 50px;
+  left: 200px;
+  width: 200px;
+  height: auto;
+  z-index: -1;
+}
+
+.seaweed2 {
+  position: fixed;
+  bottom: 50px;
+  right: -30px;
+  width: 200px;
+  height: auto;
+  z-index: -1;
+}
+
+.seaweed3 {
+  position: fixed;
+  bottom: 70px;
+  left: -40px;
+  width: 200px;
+  height: auto;
+  z-index: -1;
+}
+
+.coral {
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+  width: 500px;
+  height: auto;
+  z-index: -2;
 }
