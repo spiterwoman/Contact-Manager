@@ -366,6 +366,9 @@ function deleteContact(event) //Chrystel updated
           } else {
             if (resultElement) resultElement.textContent = "Contact deleted successfully.";
             if (typeof showNotification === "function") showNotification("Contact has been deleted");
+
+							window.location.href = "create-search.html";
+				//document.getElementById("updateOrDeleteResult").innerHTML = "Contact has been updated";
           }
         } else {
           if (resultElement) resultElement.textContent = `Delete failed (${this.status}).`;
@@ -426,6 +429,9 @@ function updateContact(event) //Dion-not updated yet
         xhr.onreadystatechange = function () {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("Contact Updated");
+
+				window.location.href = "create-search.html";
+				//document.getElementById("updateOrDeleteResult").innerHTML = "Contact has been updated";
 
             }
         }
