@@ -1,3 +1,17 @@
+const openChest = document.getElementById("openChest");
+const closedChest = document.getElementById("closedChest");
+
+// Open and close treasure chest
+closedChest.addEventListener("click", () => {
+  closedChest.style.display = "none";
+  openChest.style.display = "block";
+});
+
+openChest.addEventListener("click", () => {
+  openChest.style.display = "none";
+  closedChest.style.display = "block";
+});
+
 // Fish Images
 const FISH_IMAGES = [
   "assets/fish/purpleBlueFish.png",
@@ -10,19 +24,17 @@ const FISH_IMAGES = [
   "assets/fish/pinkFish.png"
 ];
 
-// Setting placeholders with contact info
+
+
+// Setting info of contact
 window.addEventListener("DOMContentLoaded", () => {
-    const contactFirstName = getCookie("contactFirstName");
-    const contactLastName = getCookie("contactLastName");
-    const contactEmail = getCookie("contactEmail");
-    const contactPhone = getCookie("contactPhone");
+    readContact();
 
     // Set placeholders (or values) if found
     if (contactFirstName) document.getElementById("firstName").placeholder = contactFirstName;
     if (contactLastName)  document.getElementById("lastName").placeholder  = contactLastName;
     if (contactEmail)     document.getElementById("email").placeholder     = contactEmail;
     if (contactPhone)     document.getElementById("phone").placeholder     = contactPhone;
-
 });
 
 // Where fish will spawn + how many, duration, size, etc
