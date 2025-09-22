@@ -12,9 +12,7 @@
   box-sizing: border-box;
 }
 html, body {
-  min-height: 100%;
-  overflow-x: hidden;
-  overflow-y: auto;
+  height: 100%;
 }
 body {
   margin: 0;
@@ -92,6 +90,18 @@ body {
 }
 .panel.active {
   display: block;
+}
+
+/* Notification for Add Contact*/
+.notification {
+  margin: 10px 0 0.5rem;
+  padding: 10px 12px;
+  background: var(--green);
+  color: #fff;
+  border-radius: 10px;
+  font-weight: 800;
+  text-align: center;
+  box-shadow: 0 8px 18px rgba(67,160,71,.35);
 }
 
 /* Input Fields for Login / Register */
