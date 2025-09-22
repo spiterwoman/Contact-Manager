@@ -24,6 +24,15 @@ function activate(which) {
 tabLogin?.addEventListener("click", () => activate("login"));
 tabRegister?.addEventListener("click", () => activate("register"));
 
+// show update/delete notif
+window.addEventListener("DOMContentLoaded", () => {
+  const message = sessionStorage.getItem("notification");
+  if (message) {
+    showNotification(message);
+    sessionStorage.removeItem("notification");
+  }
+});
+
 // Fish Images
 const FISH_IMAGES = [
   "assets/fish/purpleBlueFish.png",

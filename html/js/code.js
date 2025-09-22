@@ -110,6 +110,9 @@ function doRegister(event) //Alessandro-updated 09/10/2025
 				lastName = jsonObject.lastName;
 
 				saveCookie();
+
+				sessionStorage.setItem("notification", "Account Created, please login!");
+				
 				window.location.href = "login.html"; //pending update from FE, probably like contacts.html or something
 			}
 		}
