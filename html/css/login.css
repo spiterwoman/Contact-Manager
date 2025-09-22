@@ -3,7 +3,7 @@
   --deep: #021F43;
   --deep-2: #032B5A;
   --blue: #0074D9;
-  --green: #43A047;
+  --green: #1B5E20;
   --text: #EAF6FF;
 }
 
@@ -101,7 +101,7 @@ body {
   border-radius: 10px;
   font-weight: 800;
   text-align: center;
-  box-shadow: 0 8px 18px rgba(67,160,71,.35);
+  box-shadow: 0 8px 18px rgba(27,94,32,.35);
 }
 
 /* Input Fields for Login / Register */
@@ -157,10 +157,10 @@ body {
 }
 .cta.alt {
   background: var(--green);
-  box-shadow: 0 14px 28px rgba(67,160,71,.35);
+  box-shadow: 0 14px 28px rgba(27,94,32,.35);
 }
 .cta.alt:hover {
-  box-shadow: 0 18px 34px rgba(67,160,71,.45);
+  box-shadow: 0 18px 34px rgba(27,94,32,.35);
 }
 
 /* Bubbles */
