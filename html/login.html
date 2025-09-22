@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Deep Blue — Login / Register</title>
-  <link rel="stylesheet" href="login.css" />
+  <link rel="stylesheet" href="css/login.css" />
   <link rel="icon" type="image/png" href="assets/favicon/favicon.png" />
 </head>
 <body>
@@ -24,6 +24,9 @@
         <button id="tab-login" class="tab active" role="tab" aria-selected="true" aria-controls="panel-login">Login</button>
         <button id="tab-register" class="tab" role="tab" aria-selected="false" aria-controls="panel-register">Sign&nbsp;Up</button>
       </div>
+
+      <!-- Notification -->
+      <div id="notification" class="notification" role="status" aria-live="polite" hidden></div>
 
       <!-- Login Panel -->
       <form id="panel-login" class="panel active" role="tabpanel" aria-labelledby="tab-login" novalidate>
